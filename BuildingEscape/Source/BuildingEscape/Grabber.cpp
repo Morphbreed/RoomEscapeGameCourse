@@ -3,6 +3,7 @@
 #include "BuildingEscape.h"
 #include "Grabber.h"
 
+#define OUT
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -18,10 +19,7 @@ UGrabber::UGrabber()
 // Called when the game starts
 void UGrabber::BeginPlay()
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	Super::BeginPlay();	
 }
 
 
@@ -29,7 +27,21 @@ void UGrabber::BeginPlay()
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+	// get the player view point this tick
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT PlayerViewPointLocation, 
+		OUT PlayerViewRotation
+	);
 
-	// ...
+	//LOG the viewpoint every tick
+	UE_LOG(LogTemp, Warning, TEXT("Viewpoint: %s, Viewrotation: %s"), 
+		*PlayerViewPointLocation.ToString(), 
+		*PlayerViewRotation.ToString()
+	);
+	// ray-cast out to reach distance
+
+	// see what we hit
 }
 
