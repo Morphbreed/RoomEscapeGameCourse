@@ -36,10 +36,25 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 	);
 
 	//LOG the viewpoint every tick
-	UE_LOG(LogTemp, Warning, TEXT("Viewpoint: %s, Viewrotation: %s"), 
-		*PlayerViewPointLocation.ToString(), 
-		*PlayerViewRotation.ToString()
+	//UE_LOG(LogTemp, Warning, TEXT("Viewpoint: %s, Viewrotation: %s"), 
+	//	*PlayerViewPointLocation.ToString(), 
+	//	*PlayerViewRotation.ToString()
+	//);
+
+	FVector LinceTraceEnd = PlayerViewPointLocation + (PlayerViewRotation.Vector() * Reach);
+	DrawDebugLine(
+		GetWorld(),
+		PlayerViewPointLocation,
+		LinceTraceEnd,
+		FColor(255, 0, 0),
+		false,
+		0.f,
+		0.f,
+		10.f
 	);
+
+	//Draw a red trace in the world tu visualise
+
 	// ray-cast out to reach distance
 
 	// see what we hit
